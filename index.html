@@ -1,4 +1,10 @@
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -34,9 +40,7 @@
     line-height: 1;
   }
 
-  .abb-hero h1 span {
-    color: #c9a96e;
-  }
+  .abb-hero h1 span { color: #c9a96e; }
 
   .abb-hero p {
     font-size: 14px;
@@ -70,15 +74,8 @@
     text-align: center;
   }
 
-  .abb-tab.active {
-    background: #c9a96e;
-    color: #0a0a0a;
-  }
-
-  .abb-tab:hover:not(.active) {
-    background: #1a1a1a;
-    color: #c9a96e;
-  }
+  .abb-tab.active { background: #c9a96e; color: #0a0a0a; }
+  .abb-tab:hover:not(.active) { background: #1a1a1a; color: #c9a96e; }
 
   .abb-form-wrap {
     max-width: 680px;
@@ -89,9 +86,7 @@
   .form-panel { display: none; }
   .form-panel.active { display: block; }
 
-  .field-group {
-    margin-bottom: 20px;
-  }
+  .field-group { margin-bottom: 20px; }
 
   label {
     display: block;
@@ -127,13 +122,9 @@
   }
 
   select option { background: #111; }
-
   textarea { resize: vertical; min-height: 90px; }
 
-  .radio-group {
-    display: flex;
-    gap: 12px;
-  }
+  .radio-group { display: flex; gap: 12px; }
 
   .radio-btn {
     flex: 1;
@@ -160,7 +151,7 @@
     background: #1a1610;
     border: 1px solid #c9a96e;
     border-radius: 3px;
-    padding: 20px 20px;
+    padding: 20px;
     display: none;
     margin-bottom: 20px;
   }
@@ -307,12 +298,36 @@
   }
 
   .submit-btn:hover { background: #e0c080; }
+  .submit-btn:disabled { background: #555; cursor: not-allowed; }
 
   .form-hidden { display: none; }
   .form-visible { display: block; }
 
   .otro-field { margin-top: 10px; display: none; }
   .otro-field.visible { display: block; }
+
+  .toast {
+    display: none;
+    margin-top: 16px;
+    padding: 16px 20px;
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .toast.success {
+    display: block;
+    background: #1a1610;
+    border: 1px solid #c9a96e;
+    color: #c9a96e;
+  }
+
+  .toast.error {
+    display: block;
+    background: #1a0a0a;
+    border: 1px solid #c06060;
+    color: #e08080;
+  }
 </style>
 
 <div class="abb-wrap">
@@ -341,233 +356,246 @@
         </div>
       </div>
 
-      <!-- MSG para quien no cursó -->
       <div class="abb-msg" id="msg-no-abb">
         <p>Para ingresar a la bolsa de trabajo es necesario haber pasado por ABB. Conocé las próximas fechas y sumáte a la comunidad.</p>
         <a href="https://agustinbalegnobartender.com/academia-de-bartenders-2/#cursos" target="_blank">VER PRÓXIMAS FECHAS →</a>
       </div>
 
-      <!-- Formulario completo si cursó -->
       <div id="form-abb-si" class="form-hidden">
 
-        <hr class="divider">
-        <div class="section-title">TUS DATOS</div>
+        <form id="form-bartender" novalidate>
 
-        <div class="field-group">
-          <label>Nombre y apellido</label>
-          <input type="text" placeholder="Ej: Martín Rodríguez">
-        </div>
+          <hr class="divider">
+          <div class="section-title">TUS DATOS</div>
 
-        <div class="field-group">
-          <label>DNI / Pasaporte <span style="color:#555; font-size:10px; letter-spacing:1px;">(USO INTERNO ABB)</span></label>
-          <input type="text" placeholder="Ej: 38120456">
-        </div>
-
-        <div class="field-group">
-          <label>Instagram</label>
-          <input type="text" placeholder="@tuusuario">
-        </div>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
           <div class="field-group">
-            <label>WhatsApp</label>
-            <input type="tel" placeholder="+549...">
+            <label>Nombre y apellido</label>
+            <input type="text" name="nombre" placeholder="Ej: Martín Rodríguez" required>
           </div>
+
           <div class="field-group">
-            <label>Email</label>
-            <input type="email" placeholder="tu@email.com">
+            <label>DNI / Pasaporte <span style="color:#555; font-size:10px; letter-spacing:1px;">(USO INTERNO ABB)</span></label>
+            <input type="text" name="dni" placeholder="Ej: 38120456" required>
           </div>
-        </div>
 
-        <div class="field-group">
-          <label>Ciudad / Zona donde querés trabajar</label>
-          <input type="text" placeholder="Ej: Córdoba Capital, Buenos Aires, Rosario...">
-        </div>
-
-        <hr class="divider">
-        <div class="section-title">TU EXPERIENCIA</div>
-
-        <div class="field-group">
-          <label>Años de experiencia</label>
-          <select>
-            <option value="">Seleccioná</option>
-            <option>Menos de 1 año</option>
-            <option>1 – 2 años</option>
-            <option>3 – 5 años</option>
-            <option>Más de 5 años</option>
-          </select>
-        </div>
-
-        <div class="field-group">
-          <label>Tipo de establecimiento preferido</label>
-          <select>
-            <option value="">Seleccioná</option>
-            <option>Bar de coctelería</option>
-            <option>Restaurante</option>
-            <option>Hotel</option>
-            <option>Eventos y catering</option>
-            <option>Cualquiera</option>
-          </select>
-        </div>
-
-        <div class="field-group">
-          <label>Disponibilidad</label>
-          <select>
-            <option value="">Seleccioná</option>
-            <option>Full time</option>
-            <option>Part time</option>
-            <option>Fines de semana</option>
-            <option>Eventos puntuales</option>
-          </select>
-        </div>
-
-        <hr class="divider">
-        <div class="section-title">HABILIDADES EXTRAS</div>
-
-        <div class="checkbox-grid" id="skills-grid">
-          <div class="check-item" onclick="toggleCheck(this)">
-            <div class="check-mark"></div> Barista
+          <div class="field-group">
+            <label>Instagram</label>
+            <input type="text" name="instagram" placeholder="@tuusuario">
           </div>
-          <div class="check-item" onclick="toggleCheck(this)">
-            <div class="check-mark"></div> Gestión / Gerencial
-          </div>
-          <div class="check-item" onclick="toggleCheck(this)">
-            <div class="check-mark"></div> Cajero
-          </div>
-          <div class="check-item" onclick="toggleCheck(this)">
-            <div class="check-mark"></div> Control de stock
-          </div>
-          <div class="check-item" onclick="toggleCheck(this)">
-            <div class="check-mark"></div> Recepción de pedidos
-          </div>
-          <div class="check-item" onclick="toggleCheck(this)" id="check-otro">
-            <div class="check-mark"></div> Otro
-          </div>
-          <div class="check-item" onclick="toggleCheck(this)">
-            <div class="check-mark"></div> Capacitador / Formador
-          </div>
-        </div>
 
-        <div class="otro-field" id="otro-input">
-          <input type="text" placeholder="Especificá tu habilidad extra...">
-        </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="field-group">
+              <label>WhatsApp</label>
+              <input type="tel" name="whatsapp" placeholder="+549..." required>
+            </div>
+            <div class="field-group">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="tu@email.com" required>
+            </div>
+          </div>
 
-        <div class="field-group" style="margin-top: 20px;">
-          <label>Presentación breve <span style="color:#555; font-size:10px;">(OPCIONAL)</span></label>
-          <textarea placeholder="Contanos algo sobre vos, tu estilo de trabajo o lo que buscás..."></textarea>
-        </div>
+          <div class="field-group">
+            <label>Ciudad / Zona donde querés trabajar</label>
+            <input type="text" name="ciudad" placeholder="Ej: Córdoba Capital, Buenos Aires, Rosario..." required>
+          </div>
 
-        <button class="submit-btn">QUIERO SUMARME →</button>
+          <hr class="divider">
+          <div class="section-title">TU EXPERIENCIA</div>
+
+          <div class="field-group">
+            <label>Años de experiencia</label>
+            <select name="experiencia" required>
+              <option value="">Seleccioná</option>
+              <option>Menos de 1 año</option>
+              <option>1 – 2 años</option>
+              <option>3 – 5 años</option>
+              <option>Más de 5 años</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label>Tipo de establecimiento preferido</label>
+            <select name="establecimiento_preferido">
+              <option value="">Seleccioná</option>
+              <option>Bar de coctelería</option>
+              <option>Restaurante</option>
+              <option>Hotel</option>
+              <option>Eventos y catering</option>
+              <option>Cualquiera</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label>Disponibilidad</label>
+            <select name="disponibilidad" required>
+              <option value="">Seleccioná</option>
+              <option>Full time</option>
+              <option>Part time</option>
+              <option>Fines de semana</option>
+              <option>Eventos puntuales</option>
+            </select>
+          </div>
+
+          <hr class="divider">
+          <div class="section-title">HABILIDADES EXTRAS</div>
+
+          <div class="checkbox-grid" id="skills-grid">
+            <div class="check-item" onclick="toggleCheck(this)" data-skill="Barista">
+              <div class="check-mark"></div> Barista
+            </div>
+            <div class="check-item" onclick="toggleCheck(this)" data-skill="Gestión / Gerencial">
+              <div class="check-mark"></div> Gestión / Gerencial
+            </div>
+            <div class="check-item" onclick="toggleCheck(this)" data-skill="Cajero">
+              <div class="check-mark"></div> Cajero
+            </div>
+            <div class="check-item" onclick="toggleCheck(this)" data-skill="Control de stock">
+              <div class="check-mark"></div> Control de stock
+            </div>
+            <div class="check-item" onclick="toggleCheck(this)" data-skill="Recepción de pedidos">
+              <div class="check-mark"></div> Recepción de pedidos
+            </div>
+            <div class="check-item" onclick="toggleCheck(this)" data-skill="Capacitador / Formador">
+              <div class="check-mark"></div> Capacitador / Formador
+            </div>
+            <div class="check-item" onclick="toggleCheck(this)" id="check-otro" data-skill="Otro">
+              <div class="check-mark"></div> Otro
+            </div>
+          </div>
+
+          <div class="otro-field" id="otro-input">
+            <input type="text" name="habilidad_otra" placeholder="Especificá tu habilidad extra...">
+          </div>
+
+          <input type="hidden" name="habilidades" id="hidden-habilidades">
+
+          <div class="field-group" style="margin-top: 20px;">
+            <label>Presentación breve <span style="color:#555; font-size:10px;">(OPCIONAL)</span></label>
+            <textarea name="presentacion" placeholder="Contanos algo sobre vos, tu estilo de trabajo o lo que buscás..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn" id="btn-bartender">QUIERO SUMARME →</button>
+          <div class="toast" id="toast-bartender"></div>
+
+        </form>
       </div>
     </div>
 
     <!-- PANEL BAR -->
     <div id="panel-bar" class="form-panel">
 
-      <div style="margin-top: 8px;">
-        <div class="section-title" style="margin-top: 20px;">DATOS DEL LOCAL</div>
+      <form id="form-bar" novalidate>
 
-        <div class="field-group">
-          <label>Nombre del local</label>
-          <input type="text" placeholder="Ej: Bar El Alquimista">
-        </div>
+        <div style="margin-top: 8px;">
+          <div class="section-title" style="margin-top: 20px;">DATOS DEL LOCAL</div>
 
-        <div class="field-group">
-          <label>Tipo de establecimiento</label>
-          <select>
-            <option value="">Seleccioná</option>
-            <option>Bar de coctelería</option>
-            <option>Restaurante</option>
-            <option>Hotel</option>
-            <option>Boliche / Club nocturno</option>
-            <option>Catering / Eventos</option>
-            <option>Otro</option>
-          </select>
-        </div>
-
-        <div class="field-group">
-          <label>Ciudad / Zona</label>
-          <input type="text" placeholder="Ej: Córdoba Capital, CABA...">
-        </div>
-
-        <hr class="divider">
-        <div class="section-title">CONTACTO RESPONSABLE</div>
-
-        <div class="field-group">
-          <label>Nombre del responsable</label>
-          <input type="text" placeholder="Nombre y apellido">
-        </div>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
           <div class="field-group">
-            <label>WhatsApp</label>
-            <input type="tel" placeholder="+549...">
+            <label>Nombre del local</label>
+            <input type="text" name="nombre_local" placeholder="Ej: Bar El Alquimista" required>
           </div>
+
           <div class="field-group">
-            <label>Email</label>
-            <input type="email" placeholder="tu@email.com">
+            <label>Tipo de establecimiento</label>
+            <select name="tipo_establecimiento" required>
+              <option value="">Seleccioná</option>
+              <option>Bar de coctelería</option>
+              <option>Restaurante</option>
+              <option>Hotel</option>
+              <option>Boliche / Club nocturno</option>
+              <option>Catering / Eventos</option>
+              <option>Otro</option>
+            </select>
           </div>
-        </div>
 
-        <hr class="divider">
-        <div class="section-title">EL PUESTO</div>
-
-        <div class="field-group">
-          <label>Experiencia requerida</label>
-          <select>
-            <option value="">Seleccioná</option>
-            <option>Junior (menos de 2 años)</option>
-            <option>Semi (2 – 4 años)</option>
-            <option>Senior (más de 4 años)</option>
-            <option>Cualquier nivel</option>
-          </select>
-        </div>
-
-        <div class="field-group">
-          <label>Tipo de puesto</label>
-          <select>
-            <option value="">Seleccioná</option>
-            <option>Permanente</option>
-            <option>Eventual / Temporal</option>
-            <option>Reemplazos / Cobertura</option>
-            <option>Freelance por evento</option>
-          </select>
-        </div>
-
-        <div class="field-group">
-          <label>Horario aproximado</label>
-          <input type="text" placeholder="Ej: Jue a Dom de 20 a 02hs">
-        </div>
-
-        <hr class="divider">
-        <div class="section-title">COMPLEJIDAD DEL MENÚ</div>
-        <p style="font-size:13px; color:#666; margin: -8px 0 16px; line-height:1.5;">¿Qué tan técnico es tu menú de bebidas? Esto nos ayuda a encontrar el perfil correcto.</p>
-
-        <div class="slider-wrap">
-          <div style="display:flex; align-items:baseline; gap:10px;">
-            <div class="slider-val" id="slider-val">5</div>
-            <div class="slider-desc" id="slider-desc">Carta media con clásicos elaborados y algún signature</div>
+          <div class="field-group">
+            <label>Ciudad / Zona</label>
+            <input type="text" name="ciudad" placeholder="Ej: Córdoba Capital, CABA..." required>
           </div>
-          <input type="range" min="1" max="10" value="5" step="1" id="menu-slider" oninput="updateSlider(this.value)">
-          <div class="slider-labels">
-            <span>1 · Sin coctelería</span>
-            <span>10 · Alta coctelería</span>
+
+          <hr class="divider">
+          <div class="section-title">CONTACTO RESPONSABLE</div>
+
+          <div class="field-group">
+            <label>Nombre del responsable</label>
+            <input type="text" name="responsable" placeholder="Nombre y apellido" required>
           </div>
-        </div>
 
-        <div class="field-group" style="margin-top: 24px;">
-          <label>Perfil que buscás <span style="color:#555; font-size:10px;">(OPCIONAL)</span></label>
-          <textarea placeholder="Describí el perfil ideal, ambiente del local, tipo de equipo..."></textarea>
-        </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="field-group">
+              <label>WhatsApp</label>
+              <input type="tel" name="whatsapp" placeholder="+549..." required>
+            </div>
+            <div class="field-group">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="tu@email.com" required>
+            </div>
+          </div>
 
-        <button class="submit-btn">BUSCAR MI BARTENDER →</button>
-      </div>
+          <hr class="divider">
+          <div class="section-title">EL PUESTO</div>
+
+          <div class="field-group">
+            <label>Experiencia requerida</label>
+            <select name="experiencia_requerida" required>
+              <option value="">Seleccioná</option>
+              <option>Junior (menos de 2 años)</option>
+              <option>Semi (2 – 4 años)</option>
+              <option>Senior (más de 4 años)</option>
+              <option>Cualquier nivel</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label>Tipo de puesto</label>
+            <select name="tipo_puesto" required>
+              <option value="">Seleccioná</option>
+              <option>Permanente</option>
+              <option>Eventual / Temporal</option>
+              <option>Reemplazos / Cobertura</option>
+              <option>Freelance por evento</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label>Horario aproximado</label>
+            <input type="text" name="horario" placeholder="Ej: Jue a Dom de 20 a 02hs">
+          </div>
+
+          <hr class="divider">
+          <div class="section-title">COMPLEJIDAD DEL MENÚ</div>
+          <p style="font-size:13px; color:#666; margin: -8px 0 16px; line-height:1.5;">¿Qué tan técnico es tu menú de bebidas? Esto nos ayuda a encontrar el perfil correcto.</p>
+
+          <div class="slider-wrap">
+            <div style="display:flex; align-items:baseline; gap:10px;">
+              <div class="slider-val" id="slider-val">5</div>
+              <div class="slider-desc" id="slider-desc">Carta media con clásicos elaborados y algún signature</div>
+            </div>
+            <input type="range" min="1" max="10" value="5" step="1" id="menu-slider" name="complejidad_menu" oninput="updateSlider(this.value)">
+            <div class="slider-labels">
+              <span>1 · Sin coctelería</span>
+              <span>10 · Alta coctelería</span>
+            </div>
+          </div>
+
+          <div class="field-group" style="margin-top: 24px;">
+            <label>Perfil que buscás <span style="color:#555; font-size:10px;">(OPCIONAL)</span></label>
+            <textarea name="perfil_buscado" placeholder="Describí el perfil ideal, ambiente del local, tipo de equipo..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn" id="btn-bar">BUSCAR MI BARTENDER →</button>
+          <div class="toast" id="toast-bar"></div>
+
+        </div>
+      </form>
     </div>
 
   </div>
 </div>
 
 <script>
+  const ENDPOINT_BARTENDER = 'https://formspree.io/f/xkoeddbb';
+  const ENDPOINT_BAR       = 'https://formspree.io/f/xwvzggbn';
+
   const sliderDescs = {
     1: "Sin coctelería — vino, cerveza y espirituosos directos",
     2: "Bebidas simples — sin preparación técnica",
@@ -622,4 +650,78 @@
       otroCampo.classList.toggle('visible', el.classList.contains('checked'));
     }
   }
+
+  function getSelectedSkills() {
+    const items = document.querySelectorAll('#skills-grid .check-item.checked');
+    return Array.from(items).map(i => i.dataset.skill).join(', ');
+  }
+
+  async function submitForm(formEl, endpoint, btnEl, toastEl) {
+    const requiredFields = formEl.querySelectorAll('[required]');
+    let valid = true;
+
+    requiredFields.forEach(f => {
+      if (!f.value.trim()) {
+        f.style.borderColor = '#c06060';
+        valid = false;
+      } else {
+        f.style.borderColor = '#2a2a2a';
+      }
+    });
+
+    if (!valid) {
+      toastEl.className = 'toast error';
+      toastEl.textContent = 'Por favor completá todos los campos obligatorios.';
+      return;
+    }
+
+    if (formEl.id === 'form-bartender') {
+      document.getElementById('hidden-habilidades').value = getSelectedSkills();
+    }
+
+    btnEl.disabled = true;
+    btnEl.textContent = 'ENVIANDO...';
+
+    const data = new FormData(formEl);
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        toastEl.className = 'toast success';
+        toastEl.textContent = '¡Listo! Tu información fue enviada. Nos contactaremos pronto.';
+        formEl.reset();
+        document.querySelectorAll('.check-item').forEach(i => {
+          i.classList.remove('checked');
+          i.querySelector('.check-mark').textContent = '';
+        });
+        document.getElementById('otro-input') && (document.getElementById('otro-input').classList.remove('visible'));
+      } else {
+        throw new Error('server');
+      }
+    } catch {
+      toastEl.className = 'toast error';
+      toastEl.textContent = 'Hubo un error al enviar. Intentá de nuevo o escribinos por Instagram.';
+      btnEl.disabled = false;
+      btnEl.textContent = formEl.id === 'form-bartender' ? 'QUIERO SUMARME →' : 'BUSCAR MI BARTENDER →';
+    }
+  }
+
+  document.getElementById('form-bartender').addEventListener('submit', function(e) {
+    e.preventDefault();
+    submitForm(this, ENDPOINT_BARTENDER,
+      document.getElementById('btn-bartender'),
+      document.getElementById('toast-bartender'));
+  });
+
+  document.getElementById('form-bar').addEventListener('submit', function(e) {
+    e.preventDefault();
+    submitForm(this, ENDPOINT_BAR,
+      document.getElementById('btn-bar'),
+      document.getElementById('toast-bar'));
+  });
 </script>
