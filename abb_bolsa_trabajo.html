@@ -1,0 +1,625 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap');
+
+  .abb-wrap {
+    font-family: 'DM Sans', sans-serif;
+    background: #0a0a0a;
+    color: #f0ece4;
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  .abb-hero {
+    background: #0a0a0a;
+    border-bottom: 1px solid #2a2a2a;
+    padding: 36px 32px 28px;
+    text-align: center;
+  }
+
+  .abb-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: #c9a96e;
+    margin-bottom: 20px;
+  }
+
+  .abb-hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    letter-spacing: 3px;
+    color: #f0ece4;
+    margin: 0 0 8px;
+    line-height: 1;
+  }
+
+  .abb-hero h1 span {
+    color: #c9a96e;
+  }
+
+  .abb-hero p {
+    font-size: 14px;
+    color: #888;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin: 0;
+  }
+
+  .abb-tabs {
+    display: flex;
+    max-width: 680px;
+    margin: 32px auto 0;
+    gap: 0;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .abb-tab {
+    flex: 1;
+    padding: 14px 20px;
+    background: #111;
+    color: #666;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .abb-tab.active {
+    background: #c9a96e;
+    color: #0a0a0a;
+  }
+
+  .abb-tab:hover:not(.active) {
+    background: #1a1a1a;
+    color: #c9a96e;
+  }
+
+  .abb-form-wrap {
+    max-width: 680px;
+    margin: 32px auto 0;
+    padding: 0 16px;
+  }
+
+  .form-panel { display: none; }
+  .form-panel.active { display: block; }
+
+  .field-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea {
+    width: 100%;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    color: #f0ece4;
+    padding: 12px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #c9a96e;
+  }
+
+  select option { background: #111; }
+
+  textarea { resize: vertical; min-height: 90px; }
+
+  .radio-group {
+    display: flex;
+    gap: 12px;
+  }
+
+  .radio-btn {
+    flex: 1;
+    padding: 12px;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    color: #888;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 3px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .radio-btn.selected {
+    border-color: #c9a96e;
+    color: #c9a96e;
+    background: #1a1610;
+  }
+
+  .abb-msg {
+    background: #1a1610;
+    border: 1px solid #c9a96e;
+    border-radius: 3px;
+    padding: 20px 20px;
+    display: none;
+    margin-bottom: 20px;
+  }
+
+  .abb-msg.visible { display: block; }
+
+  .abb-msg p {
+    font-size: 14px;
+    color: #c9a96e;
+    margin: 0 0 12px;
+    line-height: 1.6;
+  }
+
+  .abb-msg a {
+    display: inline-block;
+    background: #c9a96e;
+    color: #0a0a0a;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    padding: 10px 20px;
+    border-radius: 3px;
+    text-decoration: none;
+  }
+
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 13px;
+    color: #aaa;
+  }
+
+  .check-item.checked {
+    border-color: #c9a96e;
+    color: #c9a96e;
+    background: #1a1610;
+  }
+
+  .check-item input { display: none; }
+
+  .check-mark {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #444;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 11px;
+  }
+
+  .check-item.checked .check-mark {
+    background: #c9a96e;
+    border-color: #c9a96e;
+    color: #0a0a0a;
+  }
+
+  .slider-wrap { padding: 4px 0; }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    background: #2a2a2a;
+    border-radius: 2px;
+    border: none;
+    padding: 0;
+    margin: 8px 0;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #c9a96e;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #555;
+    margin-top: 4px;
+  }
+
+  .slider-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: #c9a96e;
+    letter-spacing: 2px;
+    margin: 4px 0 2px;
+  }
+
+  .slider-desc {
+    font-size: 12px;
+    color: #777;
+    min-height: 18px;
+    font-style: italic;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid #1e1e1e;
+    margin: 28px 0;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: #c9a96e;
+    margin-bottom: 16px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: #c9a96e;
+    color: #0a0a0a;
+    border: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-top: 8px;
+    transition: background 0.2s;
+  }
+
+  .submit-btn:hover { background: #e0c080; }
+
+  .form-hidden { display: none; }
+  .form-visible { display: block; }
+
+  .otro-field { margin-top: 10px; display: none; }
+  .otro-field.visible { display: block; }
+</style>
+
+<div class="abb-wrap">
+  <div class="abb-hero">
+    <div class="abb-logo">ABB · ACADEMIA DE BARTENDERS</div>
+    <h1>BOLSA DE <span>TRABAJO</span></h1>
+    <p>Conectamos bartenders formados con bares que buscan talento real</p>
+
+    <div class="abb-tabs">
+      <button class="abb-tab active" onclick="switchTab('bartender', this)">SOY BARTENDER</button>
+      <button class="abb-tab" onclick="switchTab('bar', this)">TENGO UN BAR</button>
+    </div>
+  </div>
+
+  <div class="abb-form-wrap">
+
+    <!-- PANEL BARTENDER -->
+    <div id="panel-bartender" class="form-panel active">
+
+      <div style="margin-bottom: 24px; margin-top: 8px;">
+        <div class="section-title">ANTES DE EMPEZAR</div>
+        <label>¿Cursaste con ABB?</label>
+        <div class="radio-group">
+          <div class="radio-btn" id="abb-si" onclick="abbChoice('si')">SÍ, CURSÉ</div>
+          <div class="radio-btn" id="abb-no" onclick="abbChoice('no')">NO TODAVÍA</div>
+        </div>
+      </div>
+
+      <!-- MSG para quien no cursó -->
+      <div class="abb-msg" id="msg-no-abb">
+        <p>Para ingresar a la bolsa de trabajo es necesario haber pasado por ABB. Conocé las próximas fechas y sumáte a la comunidad.</p>
+        <a href="https://agustinbalegnobartender.com/academia-de-bartenders-2/#cursos" target="_blank">VER PRÓXIMAS FECHAS →</a>
+      </div>
+
+      <!-- Formulario completo si cursó -->
+      <div id="form-abb-si" class="form-hidden">
+
+        <hr class="divider">
+        <div class="section-title">TUS DATOS</div>
+
+        <div class="field-group">
+          <label>Nombre y apellido</label>
+          <input type="text" placeholder="Ej: Martín Rodríguez">
+        </div>
+
+        <div class="field-group">
+          <label>DNI / Pasaporte <span style="color:#555; font-size:10px; letter-spacing:1px;">(USO INTERNO ABB)</span></label>
+          <input type="text" placeholder="Ej: 38120456">
+        </div>
+
+        <div class="field-group">
+          <label>Instagram</label>
+          <input type="text" placeholder="@tuusuario">
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="field-group">
+            <label>WhatsApp</label>
+            <input type="tel" placeholder="+549...">
+          </div>
+          <div class="field-group">
+            <label>Email</label>
+            <input type="email" placeholder="tu@email.com">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Ciudad / Zona donde querés trabajar</label>
+          <input type="text" placeholder="Ej: Córdoba Capital, Buenos Aires, Rosario...">
+        </div>
+
+        <hr class="divider">
+        <div class="section-title">TU EXPERIENCIA</div>
+
+        <div class="field-group">
+          <label>Años de experiencia</label>
+          <select>
+            <option value="">Seleccioná</option>
+            <option>Menos de 1 año</option>
+            <option>1 – 2 años</option>
+            <option>3 – 5 años</option>
+            <option>Más de 5 años</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label>Tipo de establecimiento preferido</label>
+          <select>
+            <option value="">Seleccioná</option>
+            <option>Bar de coctelería</option>
+            <option>Restaurante</option>
+            <option>Hotel</option>
+            <option>Eventos y catering</option>
+            <option>Cualquiera</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label>Disponibilidad</label>
+          <select>
+            <option value="">Seleccioná</option>
+            <option>Full time</option>
+            <option>Part time</option>
+            <option>Fines de semana</option>
+            <option>Eventos puntuales</option>
+          </select>
+        </div>
+
+        <hr class="divider">
+        <div class="section-title">HABILIDADES EXTRAS</div>
+
+        <div class="checkbox-grid" id="skills-grid">
+          <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-mark"></div> Barista
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-mark"></div> Gestión / Gerencial
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-mark"></div> Cajero
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-mark"></div> Control de stock
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-mark"></div> Recepción de pedidos
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)" id="check-otro">
+            <div class="check-mark"></div> Otro
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-mark"></div> Capacitador / Formador
+          </div>
+        </div>
+
+        <div class="otro-field" id="otro-input">
+          <input type="text" placeholder="Especificá tu habilidad extra...">
+        </div>
+
+        <div class="field-group" style="margin-top: 20px;">
+          <label>Presentación breve <span style="color:#555; font-size:10px;">(OPCIONAL)</span></label>
+          <textarea placeholder="Contanos algo sobre vos, tu estilo de trabajo o lo que buscás..."></textarea>
+        </div>
+
+        <button class="submit-btn">QUIERO SUMARME →</button>
+      </div>
+    </div>
+
+    <!-- PANEL BAR -->
+    <div id="panel-bar" class="form-panel">
+
+      <div style="margin-top: 8px;">
+        <div class="section-title" style="margin-top: 20px;">DATOS DEL LOCAL</div>
+
+        <div class="field-group">
+          <label>Nombre del local</label>
+          <input type="text" placeholder="Ej: Bar El Alquimista">
+        </div>
+
+        <div class="field-group">
+          <label>Tipo de establecimiento</label>
+          <select>
+            <option value="">Seleccioná</option>
+            <option>Bar de coctelería</option>
+            <option>Restaurante</option>
+            <option>Hotel</option>
+            <option>Boliche / Club nocturno</option>
+            <option>Catering / Eventos</option>
+            <option>Otro</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label>Ciudad / Zona</label>
+          <input type="text" placeholder="Ej: Córdoba Capital, CABA...">
+        </div>
+
+        <hr class="divider">
+        <div class="section-title">CONTACTO RESPONSABLE</div>
+
+        <div class="field-group">
+          <label>Nombre del responsable</label>
+          <input type="text" placeholder="Nombre y apellido">
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="field-group">
+            <label>WhatsApp</label>
+            <input type="tel" placeholder="+549...">
+          </div>
+          <div class="field-group">
+            <label>Email</label>
+            <input type="email" placeholder="tu@email.com">
+          </div>
+        </div>
+
+        <hr class="divider">
+        <div class="section-title">EL PUESTO</div>
+
+        <div class="field-group">
+          <label>Experiencia requerida</label>
+          <select>
+            <option value="">Seleccioná</option>
+            <option>Junior (menos de 2 años)</option>
+            <option>Semi (2 – 4 años)</option>
+            <option>Senior (más de 4 años)</option>
+            <option>Cualquier nivel</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label>Tipo de puesto</label>
+          <select>
+            <option value="">Seleccioná</option>
+            <option>Permanente</option>
+            <option>Eventual / Temporal</option>
+            <option>Reemplazos / Cobertura</option>
+            <option>Freelance por evento</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label>Horario aproximado</label>
+          <input type="text" placeholder="Ej: Jue a Dom de 20 a 02hs">
+        </div>
+
+        <hr class="divider">
+        <div class="section-title">COMPLEJIDAD DEL MENÚ</div>
+        <p style="font-size:13px; color:#666; margin: -8px 0 16px; line-height:1.5;">¿Qué tan técnico es tu menú de bebidas? Esto nos ayuda a encontrar el perfil correcto.</p>
+
+        <div class="slider-wrap">
+          <div style="display:flex; align-items:baseline; gap:10px;">
+            <div class="slider-val" id="slider-val">5</div>
+            <div class="slider-desc" id="slider-desc">Carta media con clásicos elaborados y algún signature</div>
+          </div>
+          <input type="range" min="1" max="10" value="5" step="1" id="menu-slider" oninput="updateSlider(this.value)">
+          <div class="slider-labels">
+            <span>1 · Sin coctelería</span>
+            <span>10 · Alta coctelería</span>
+          </div>
+        </div>
+
+        <div class="field-group" style="margin-top: 24px;">
+          <label>Perfil que buscás <span style="color:#555; font-size:10px;">(OPCIONAL)</span></label>
+          <textarea placeholder="Describí el perfil ideal, ambiente del local, tipo de equipo..."></textarea>
+        </div>
+
+        <button class="submit-btn">BUSCAR MI BARTENDER →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const sliderDescs = {
+    1: "Sin coctelería — vino, cerveza y espirituosos directos",
+    2: "Bebidas simples — sin preparación técnica",
+    3: "Cócteles muy básicos y clásicos de mínima complejidad",
+    4: "Clásicos conocidos — Aperol Spritz, Gin Tonic, Fernet",
+    5: "Carta media con clásicos elaborados y algún signature",
+    6: "Cócteles de autor con técnica presente",
+    7: "Jarabes propios, macerados y presentaciones elaboradas",
+    8: "Coctelería de autor con técnica avanzada consistente",
+    9: "Clarificados, sous vide, fermentados y alta técnica",
+    10: "Alta coctelería — nitrógeno, texturas, técnicas de vanguardia"
+  };
+
+  function updateSlider(val) {
+    document.getElementById('slider-val').textContent = val;
+    document.getElementById('slider-desc').textContent = sliderDescs[val];
+  }
+
+  function switchTab(tab, el) {
+    document.querySelectorAll('.abb-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+
+  function abbChoice(choice) {
+    document.getElementById('abb-si').classList.remove('selected');
+    document.getElementById('abb-no').classList.remove('selected');
+    document.getElementById('abb-' + choice).classList.add('selected');
+
+    const msgNo = document.getElementById('msg-no-abb');
+    const formSi = document.getElementById('form-abb-si');
+
+    if (choice === 'no') {
+      msgNo.classList.add('visible');
+      formSi.classList.remove('form-visible');
+      formSi.classList.add('form-hidden');
+    } else {
+      msgNo.classList.remove('visible');
+      formSi.classList.remove('form-hidden');
+      formSi.classList.add('form-visible');
+    }
+  }
+
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+    const mark = el.querySelector('.check-mark');
+    mark.textContent = el.classList.contains('checked') ? '✓' : '';
+
+    if (el.id === 'check-otro') {
+      const otroCampo = document.getElementById('otro-input');
+      otroCampo.classList.toggle('visible', el.classList.contains('checked'));
+    }
+  }
+</script>
