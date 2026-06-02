@@ -347,7 +347,49 @@
     <!-- PANEL BARTENDER -->
     <div id="panel-bartender" class="form-panel active">
 
-      <div id="form-abb-si" class="form-visible">
+      <!-- CAPTCHA -->
+      <div id="captcha-wrap" style="margin-top: 16px;">
+
+        <!-- Paso 1: pregunta de texto -->
+        <div id="captcha-q1">
+          <div class="section-title" style="margin-top: 8px;">ANTES DE EMPEZAR</div>
+          <p style="font-size:13px; color:#666; margin: -8px 0 20px; line-height:1.5;">Una pregunta rápida para confirmar que sos bartender.</p>
+          <label>¿Cuál de estos ingredientes NO entraría en un Negroni clásico?</label>
+          <div class="radio-group" style="flex-direction:column; gap:10px; margin-top: 12px;">
+            <div class="captcha-opt radio-btn" onclick="checkCaptcha1('vermu')">Vermu Rosso</div>
+            <div class="captcha-opt radio-btn" onclick="checkCaptcha1('cynar')">Cynar</div>
+            <div class="captcha-opt radio-btn" onclick="checkCaptcha1('fernet')">Fernet</div>
+          </div>
+          <div id="captcha-q1-error" style="display:none; margin-top:14px; font-size:13px; color:#c06060; font-style:italic;"></div>
+        </div>
+
+        <!-- Paso 2: imagen Pisco Sour (oculto hasta que falle q1) -->
+        <div id="captcha-q2" style="display:none;">
+          <div class="section-title" style="margin-top: 8px;">UNA MÁS</div>
+          <p style="font-size:13px; color:#666; margin: -8px 0 20px; line-height:1.5;">Identificá el cóctel de la imagen.</p>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Pisco_Sour_2.jpg/480px-Pisco_Sour_2.jpg"
+               alt="¿Qué cóctel es este?"
+               style="width:100%; max-width:340px; display:block; border-radius:6px; margin-bottom:20px; border:1px solid #2a2a2a;">
+          <label>¿Qué cóctel es este?</label>
+          <div class="radio-group" style="flex-direction:column; gap:10px; margin-top:12px;">
+            <div class="captcha-opt radio-btn" onclick="checkCaptcha2('daiquiri')">Daiquiri</div>
+            <div class="captcha-opt radio-btn" onclick="checkCaptcha2('gimlet')">Gimlet</div>
+            <div class="captcha-opt radio-btn" onclick="checkCaptcha2('pisco')">Pisco Sour</div>
+          </div>
+          <div id="captcha-q2-error" style="display:none; margin-top:14px; font-size:13px; color:#c06060; font-style:italic;"></div>
+        </div>
+
+        <!-- Bloqueado -->
+        <div id="captcha-blocked" style="display:none;">
+          <div class="abb-msg visible" style="display:block;">
+            <p>Parece que todavía no estás en el mundo de la coctelería. Cuando quieras dar el paso, en ABB te esperamos.</p>
+            <a href="https://agustinbalegnobartender.com/academia-de-bartenders-2/#cursos" target="_blank">VER CURSOS ABB →</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="form-abb-si" class="form-hidden">
 
         <form id="form-bartender" novalidate>
 
@@ -622,6 +664,47 @@
     el.classList.add('active');
     document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + tab).classList.add('active');
+  }
+
+  function unlockForm() {
+    document.getElementById('captcha-wrap').style.display = 'none';
+    const form = document.getElementById('form-abb-si');
+    form.classList.remove('form-hidden');
+    form.classList.add('form-visible');
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function checkCaptcha1(answer) {
+    document.querySelectorAll('#captcha-q1 .captcha-opt').forEach(o => o.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+
+    setTimeout(() => {
+      if (answer === 'fernet') {
+        unlockForm();
+      } else {
+        // respuesta incorrecta: mostrar feedback y pasar a q2
+        document.getElementById('captcha-q1-error').style.display = 'block';
+        document.getElementById('captcha-q1-error').textContent = 'No exactamente... una más.';
+        setTimeout(() => {
+          document.getElementById('captcha-q1').style.display = 'none';
+          document.getElementById('captcha-q2').style.display = 'block';
+        }, 900);
+      }
+    }, 300);
+  }
+
+  function checkCaptcha2(answer) {
+    document.querySelectorAll('#captcha-q2 .captcha-opt').forEach(o => o.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+
+    setTimeout(() => {
+      if (answer === 'pisco') {
+        unlockForm();
+      } else {
+        document.getElementById('captcha-q2').style.display = 'none';
+        document.getElementById('captcha-blocked').style.display = 'block';
+      }
+    }, 300);
   }
 
   function toggleCheck(el) {
