@@ -347,21 +347,7 @@
     <!-- PANEL BARTENDER -->
     <div id="panel-bartender" class="form-panel active">
 
-      <div style="margin-bottom: 24px; margin-top: 8px;">
-        <div class="section-title">ANTES DE EMPEZAR</div>
-        <label>¿Cursaste con ABB?</label>
-        <div class="radio-group">
-          <div class="radio-btn" id="abb-si" onclick="abbChoice('si')">SÍ, CURSÉ</div>
-          <div class="radio-btn" id="abb-no" onclick="abbChoice('no')">NO TODAVÍA</div>
-        </div>
-      </div>
-
-      <div class="abb-msg" id="msg-no-abb">
-        <p>Para ingresar a la bolsa de trabajo es necesario haber pasado por ABB. Conocé las próximas fechas y sumáte a la comunidad.</p>
-        <a href="https://agustinbalegnobartender.com/academia-de-bartenders-2/#cursos" target="_blank">VER PRÓXIMAS FECHAS →</a>
-      </div>
-
-      <div id="form-abb-si" class="form-hidden">
+      <div id="form-abb-si" class="form-visible">
 
         <form id="form-bartender" novalidate>
 
@@ -376,6 +362,11 @@
           <div class="field-group">
             <label>DNI / Pasaporte <span style="color:#555; font-size:10px; letter-spacing:1px;">(USO INTERNO ABB)</span></label>
             <input type="text" name="dni" placeholder="Ej: 38120456" required>
+          </div>
+
+          <div class="field-group">
+            <label>¿Cursaste en ABB? <span style="color:#555; font-size:10px; letter-spacing:1px;">(OPCIONAL)</span></label>
+            <input type="text" name="curso_abb" placeholder="Ej: Marzo 2024, Junio 2023...">
           </div>
 
           <div class="field-group">
@@ -631,25 +622,6 @@
     el.classList.add('active');
     document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + tab).classList.add('active');
-  }
-
-  function abbChoice(choice) {
-    document.getElementById('abb-si').classList.remove('selected');
-    document.getElementById('abb-no').classList.remove('selected');
-    document.getElementById('abb-' + choice).classList.add('selected');
-
-    const msgNo = document.getElementById('msg-no-abb');
-    const formSi = document.getElementById('form-abb-si');
-
-    if (choice === 'no') {
-      msgNo.classList.add('visible');
-      formSi.classList.remove('form-visible');
-      formSi.classList.add('form-hidden');
-    } else {
-      msgNo.classList.remove('visible');
-      formSi.classList.remove('form-hidden');
-      formSi.classList.add('form-visible');
-    }
   }
 
   function toggleCheck(el) {
