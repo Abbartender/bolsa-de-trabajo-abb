@@ -350,16 +350,23 @@
       <!-- CAPTCHA -->
       <div id="captcha-wrap" style="margin-top: 16px;">
 
-        <!-- Paso 1: pregunta de texto -->
+        <!-- Paso 1: pregunta multi-select -->
         <div id="captcha-q1">
           <div class="section-title" style="margin-top: 8px;">ANTES DE EMPEZAR</div>
           <p style="font-size:13px; color:#666; margin: -8px 0 20px; line-height:1.5;">Una pregunta rápida para confirmar que sos bartender.</p>
-          <label>¿Cuál de estos ingredientes NO entraría en un Negroni clásico?</label>
-          <div class="radio-group" style="flex-direction:column; gap:10px; margin-top: 12px;">
-            <div class="captcha-opt radio-btn" onclick="checkCaptcha1('vermu')">Vermu Rosso</div>
-            <div class="captcha-opt radio-btn" onclick="checkCaptcha1('cynar')">Cynar</div>
-            <div class="captcha-opt radio-btn" onclick="checkCaptcha1('fernet')">Fernet</div>
+          <label>¿Cuáles de estos ingredientes NO entrarían en un Negroni clásico? <span style="color:#555; font-size:10px;">(PODÉS ELEGIR MÁS DE UNO)</span></label>
+          <div style="display:flex; flex-direction:column; gap:10px; margin-top:12px;">
+            <div class="captcha-opt check-item" id="cq1-vermu" onclick="toggleCaptchaOpt(this)">
+              <div class="check-mark"></div> Vermu Rosso
+            </div>
+            <div class="captcha-opt check-item" id="cq1-cynar" onclick="toggleCaptchaOpt(this)">
+              <div class="check-mark"></div> Cynar
+            </div>
+            <div class="captcha-opt check-item" id="cq1-fernet" onclick="toggleCaptchaOpt(this)">
+              <div class="check-mark"></div> Fernet
+            </div>
           </div>
+          <button type="button" onclick="submitCaptcha1()" class="submit-btn" style="margin-top:16px; font-size:15px; padding:12px;">CONFIRMAR →</button>
           <div id="captcha-q1-error" style="display:none; margin-top:14px; font-size:13px; color:#c06060; font-style:italic;"></div>
         </div>
 
@@ -367,7 +374,7 @@
         <div id="captcha-q2" style="display:none;">
           <div class="section-title" style="margin-top: 8px;">UNA MÁS</div>
           <p style="font-size:13px; color:#666; margin: -8px 0 20px; line-height:1.5;">Identificá el cóctel de la imagen.</p>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Pisco_Sour_2.jpg/480px-Pisco_Sour_2.jpg"
+          <img src="pisco-sour.jpg"
                alt="¿Qué cóctel es este?"
                style="width:100%; max-width:340px; display:block; border-radius:6px; margin-bottom:20px; border:1px solid #2a2a2a;">
           <label>¿Qué cóctel es este?</label>
@@ -674,23 +681,29 @@
     form.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  function checkCaptcha1(answer) {
-    document.querySelectorAll('#captcha-q1 .captcha-opt').forEach(o => o.classList.remove('selected'));
-    event.currentTarget.classList.add('selected');
+  function toggleCaptchaOpt(el) {
+    el.classList.toggle('checked');
+    const mark = el.querySelector('.check-mark');
+    mark.textContent = el.classList.contains('checked') ? '✓' : '';
+  }
 
-    setTimeout(() => {
-      if (answer === 'fernet') {
-        unlockForm();
-      } else {
-        // respuesta incorrecta: mostrar feedback y pasar a q2
-        document.getElementById('captcha-q1-error').style.display = 'block';
-        document.getElementById('captcha-q1-error').textContent = 'No exactamente... una más.';
-        setTimeout(() => {
-          document.getElementById('captcha-q1').style.display = 'none';
-          document.getElementById('captcha-q2').style.display = 'block';
-        }, 900);
-      }
-    }, 300);
+  function submitCaptcha1() {
+    const cynar  = document.getElementById('cq1-cynar').classList.contains('checked');
+    const fernet = document.getElementById('cq1-fernet').classList.contains('checked');
+    const vermu  = document.getElementById('cq1-vermu').classList.contains('checked');
+
+    // Correcto: deben marcar Cynar Y Fernet, sin marcar Vermu
+    if (cynar && fernet && !vermu) {
+      unlockForm();
+    } else {
+      const errEl = document.getElementById('captcha-q1-error');
+      errEl.style.display = 'block';
+      errEl.textContent = 'No exactamente... una imagen más.';
+      setTimeout(() => {
+        document.getElementById('captcha-q1').style.display = 'none';
+        document.getElementById('captcha-q2').style.display = 'block';
+      }, 900);
+    }
   }
 
   function checkCaptcha2(answer) {
